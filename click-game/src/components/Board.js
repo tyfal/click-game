@@ -7,7 +7,31 @@ class Board extends React.Component {
         characters: [`bobbelcher`, `tinabelcher`, `louisebelcher`, `teddy`, `mort`, `jimmypestojr`, `andyandolliepesto`, `genebelcher`, `lindabelcher`],
         clicked: [],
         score: 0,
-        highScore: 0
+        highScore: 0,
+    }
+
+    shuffle = () => {
+        const used = [];
+        const tempCharacters = this.state.characters;
+        while (used.length < 9) {
+            let randIndex = Math.floor(Math.random() * 9);
+            if (!used.includes(randIndex)) {
+                used.push(randIndex)
+            }
+        }
+        this.setState({
+            characters: [
+                tempCharacters[used[0]]
+                ,tempCharacters[used[1]]
+                ,tempCharacters[used[2]]
+                ,tempCharacters[used[3]]
+                ,tempCharacters[used[4]]
+                ,tempCharacters[used[5]]
+                ,tempCharacters[used[6]]
+                ,tempCharacters[used[7]]
+                ,tempCharacters[used[8]]
+            ]
+        })
     }
 
 
@@ -24,7 +48,9 @@ class Board extends React.Component {
                 this.setState({ highScore: this.state.score});
             }
             this.setState({score: 0});
+            this.setState({clicked: []});
         }
+        this.shuffle();
     }
 
     render() {
